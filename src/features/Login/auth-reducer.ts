@@ -1,10 +1,11 @@
+import {cardsAPI, LoginParamsType} from "../../api/cards-api";
+import {Dispatch} from "redux";
+
 const initialState = {
     isLoggedIn: false
 }
 
-type initialStateType = typeof initialState
-
-export const AuthReducer = (state: initialStateType = initialState, action: LoginActionType) => {
+export const AuthReducer = (state: InitialStateType = initialState, action: LoginActionType) => {
     switch (action.type) {
         case 'auth/LOGIN':
             return {...state, isLoggedIn: action.isLoggedIn}
@@ -14,7 +15,17 @@ export const AuthReducer = (state: initialStateType = initialState, action: Logi
 }
 
 // thunks
-
+export const loginTC = (loginParams: LoginParamsType) => (dispatch: Dispatch) => {
+    cardsAPI.login(loginParams)
+        .then(() => {
+            dispatch(setIsLoggedInAC(true))
+        })
+        .catch(e => {
+            const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console')
+        })
+}
 
 
 // actions
@@ -22,3 +33,6 @@ export const setIsLoggedInAC = (isLoggedIn: boolean) => ({type: 'auth/LOGIN', is
 
 // action types
 export type LoginActionType = ReturnType<typeof setIsLoggedInAC>
+
+// types
+type InitialStateType = typeof initialState
