@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 
-export const CustomCheckbox: React.FC<any> = (props) => {
+export const CustomCheckbox: React.FC = (props) => {
     const [checked, setChecked] = useState<boolean>()
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
