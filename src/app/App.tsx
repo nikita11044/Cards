@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path={ '/login' } render={ () => <Login/> }/>
+        <Route path={ '/login' } render={ () => <Login/> }/> Login
         <Route path={ '/create-password' } render={ () => <PasswordCreation/> }/>
         <Route path={ '/recover-password' } render={ () => <PasswordRecovery/> }/>
         <Route path={ '/profile' } render={ () => <Profile/> }/>

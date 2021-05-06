@@ -5,12 +5,28 @@ import {PasswordRecoveryReducer} from "../features/Password/PasswordRecovery/pas
 import {ProfileReducer} from "../features/Profile/profile-reducer";
 import {SignUpReducer} from "../features/SignUp/sign-up-reducer";
 
+import thunk, { ThunkAction } from "redux-thunk";
+import {Action } from "redux";
+
+
+export type AppRootStateT = ReturnType<typeof rootReducer>;
+/*
+ * In a AppThunkT  is a action or actions what you want to use
+ * Each reducer has it own actions
+ * */
+export type AppThunkT<A extends Action> = ThunkAction<void, AppRootStateT, unknown, A>;
+export type AppDispatchT = typeof store.dispatch;
+
+
+
+
 const rootReducer = combineReducers({
-    login: LoginReducer,
-    createPassword: PasswordCreationReducer,
     recoverPassword: PasswordRecoveryReducer,
+   /*login: LoginReducer,
+    createPassword: PasswordCreationReducer,
+
     profile: ProfileReducer,
-    signUp: SignUpReducer
+    signUp: SignUpReducer*/
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
