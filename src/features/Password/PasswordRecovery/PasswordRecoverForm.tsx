@@ -1,5 +1,3 @@
-//import { InputText } from "../../components/common/InputText/InputText";
-//import { Button } from "../../components/common/Button/Button";
 import { InputText } from "../../../components/InputText";
 import { Button } from "../../../components/Button";
 import React, {useState} from "react";

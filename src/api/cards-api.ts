@@ -17,6 +17,12 @@ export const passwordAPI = {
     }
 }
 
+export const signUpAPI = {
+    register(email: string, password: string) {
+        return instance.post<SignUpResponseType>('auth/register', {email, password})
+    }
+}
+
 // types
 export type LoginParamsType = {
     email: string
@@ -41,4 +47,9 @@ type LoginResponseType = {
 type PassportRecoveryResponseType = {
     info: string,
     error: string
+}
+
+type SignUpResponseType = {
+    addedUser: any,
+    error?: string
 }
