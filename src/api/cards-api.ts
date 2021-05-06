@@ -11,6 +11,12 @@ export const cardsAPI = {
     }
 }
 
+export const passwordAPI = {
+    recover(email: string, from: string) {
+        return instance.post<PassportRecoveryResponseType>('auth/forgot', {email, from, message: `<div style="background-color: lime; padding: 15px">error: string;password recovery link:<a href='http://localhost:3000/#/set-new-password/$token$'></a>link</a></div>`})
+    }
+}
+
 // types
 export type LoginParamsType = {
     email: string
@@ -30,4 +36,9 @@ type LoginResponseType = {
     verified: boolean
     rememberMe: boolean
     error?: string
+}
+
+type PassportRecoveryResponseType = {
+    info: string,
+    error: string
 }

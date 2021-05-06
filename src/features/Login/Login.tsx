@@ -1,12 +1,13 @@
 import React from "react"
-import {CustomTextInput} from "../../components/CustomTextInput";
-import {CustomCheckbox} from "../../components/CustomCheckbox";
-import {CustomButton} from "../../components/CustomButton";
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import {loginTC} from "./auth-reducer";
 import {AppRootStateType} from "../../app/store";
-import { Redirect } from "react-router-dom";
+import {NavLink, Redirect } from "react-router-dom";
+import styled from "styled-components/macro";
+import {InputText} from "../../components/InputText";
+import {Checkbox} from "../../components/Checkbox";
+import { Button } from "../../components/Button";
 
 type FormikErrorType = {
     email?: string
@@ -50,11 +51,21 @@ export const Login: React.FC = () => {
         return <Redirect to={'/profile'}/>
     }
 
-    return <form onSubmit={formik.handleSubmit}>
-        <input type="email" placeholder="email"  {...formik.getFieldProps('email')}/>
-        <input type="password" placeholder="password" {...formik.getFieldProps('password')}/>
-        Remember me
-        <input type="checkbox" {...formik.getFieldProps('rememberMe')} />
-        <button type="submit">Login</button>
-    </form>
+    return <StyledForm onSubmit={formik.handleSubmit}>
+        <InputText type="email" {...formik.getFieldProps('email')}/>
+        <div>
+            <NavLink to={'/recover-password'}>Forgot password?</NavLink>
+        </div>
+        <InputText type="password" {...formik.getFieldProps('password')}/>
+        Remember me <Checkbox {...formik.getFieldProps('rememberMe')}/>
+        <Button>Login</Button>
+    </StyledForm>
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-basis: 400px;
+`;

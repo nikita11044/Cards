@@ -1,18 +1,15 @@
-import {combineReducers, createStore} from "redux";
+import {combineReducers} from "redux";
 import {AuthReducer} from "../features/Login/auth-reducer";
-import {PasswordCreationReducer} from "../features/Password/PasswordCreation/password-creation-reducer";
-import {PasswordRecoveryReducer} from "../features/Password/PasswordRecovery/password-recovery-reducer";
-import {ProfileReducer} from "../features/Profile/profile-reducer";
-import {SignUpReducer} from "../features/SignUp/sign-up-reducer";
 import thunkMiddleware from 'redux-thunk'
 import {AppReducer} from "./app-reducer";
 import {configureStore} from "@reduxjs/toolkit";
+import {PasswordRecoveryReducer} from "../features/Password/PasswordRecovery/password-recovery-reducer";
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
     app: AppReducer,
     // createPassword: PasswordCreationReducer,
-    // recoverPassword: PasswordRecoveryReducer,
+    recoverPassword: PasswordRecoveryReducer,
     // profile: ProfileReducer,
     // signUp: SignUpReducer
 })

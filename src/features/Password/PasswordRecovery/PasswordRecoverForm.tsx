@@ -1,13 +1,18 @@
 //import { InputText } from "../../components/common/InputText/InputText";
 //import { Button } from "../../components/common/Button/Button";
-import { InputText } from "./InputText";
-import { Button } from "./Button";
-import React from "react";
-import { useDispatch } from "react-redux";
+import { InputText } from "../../../components/InputText";
+import { Button } from "../../../components/Button";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { useFormik } from "formik";
 import styled from "styled-components/macro";
+import {passwordRecoveryTC} from "./password-recovery-reducer";
+import {AppRootStateType} from "../../../app/store";
+import {Redirect} from "react-router-dom";
 
 export const PasswordRecoverForm: React.FC = () => {
+
+    const forgotPassword = useSelector<AppRootStateType, boolean>(state => state.recoverPassword.forgotPassword)
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -25,9 +30,13 @@ export const PasswordRecoverForm: React.FC = () => {
             email: ""
         },
         onSubmit: values => {
-            // dispatch(recover(values))
+            dispatch(passwordRecoveryTC(values.email, 'test-front-admin <nikita11042000@gmail.com>'))
         }
     });
+
+    if (forgotPassword) {
+        return <Redirect to={'/create-password'} />
+    }
 
     return (
         <StyledForm onSubmit={formik.handleSubmit}>

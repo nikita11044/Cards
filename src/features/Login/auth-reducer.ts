@@ -1,24 +1,28 @@
 import {cardsAPI, LoginParamsType} from "../../api/cards-api";
 import {Dispatch} from "redux";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     isLoggedIn: false
 }
 
-export const AuthReducer = (state: InitialStateType = initialState, action: LoginActionType) => {
-    switch (action.type) {
-        case 'auth/LOGIN':
-            return {...state, isLoggedIn: action.isLoggedIn}
-        default:
-            return state
+const slice = createSlice({
+    name: 'auth',
+    initialState: initialState,
+    reducers: {
+        setIsLoggedIn(state, action: PayloadAction<{isLoggedIn: boolean}>) {
+            state.isLoggedIn = action.payload.isLoggedIn
+        }
     }
-}
+})
+
+export const AuthReducer = slice.reducer
 
 // thunks
 export const loginTC = (loginParams: LoginParamsType) => (dispatch: Dispatch) => {
     cardsAPI.login(loginParams)
         .then(() => {
-            dispatch(setIsLoggedInAC(true))
+            dispatch(setIsLoggedIn({isLoggedIn: true}))
         })
         .catch(e => {
             const error = e.response
@@ -29,10 +33,4 @@ export const loginTC = (loginParams: LoginParamsType) => (dispatch: Dispatch) =>
 
 
 // actions
-export const setIsLoggedInAC = (isLoggedIn: boolean) => ({type: 'auth/LOGIN', isLoggedIn} as const)
-
-// action types
-export type LoginActionType = ReturnType<typeof setIsLoggedInAC>
-
-// types
-type InitialStateType = typeof initialState
+export const {setIsLoggedIn} = slice.actions
