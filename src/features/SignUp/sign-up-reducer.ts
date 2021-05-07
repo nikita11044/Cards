@@ -22,9 +22,9 @@ export const {setIsSignedUp} = slice.actions
 
 // thunks
 export const singUpTC = (email: string, password: string) => (dispatch: Dispatch) => {
-    setIsSignedUp({isSignedUp: true})
     signUpAPI.register(email, password)
         .then(() => {
+            debugger
             setIsSignedUp({isSignedUp: true})
         })
         .catch(e => {
