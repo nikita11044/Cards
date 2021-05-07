@@ -1,6 +1,7 @@
 import {cardsAPI, LoginParamsType} from "../../api/cards-api";
 import {Dispatch} from "redux";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {setProfile} from "../Profile/profile-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -21,7 +22,9 @@ export const AuthReducer = slice.reducer
 // thunks
 export const loginTC = (loginParams: LoginParamsType) => (dispatch: Dispatch) => {
     cardsAPI.login(loginParams)
-        .then(() => {
+        .then((response) => {
+            const {_id, email, name, avatar} = response.data
+            dispatch(setProfile({_id, email, name, avatar}))
             dispatch(setIsLoggedIn({isLoggedIn: true}))
         })
         .catch(e => {

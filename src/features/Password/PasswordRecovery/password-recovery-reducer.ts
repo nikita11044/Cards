@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
-import {cardsAPI, passwordAPI} from "../../../api/cards-api";
+import {passwordAPI} from "../../../api/cards-api";
 
 export const initialState = {
     forgotPassword: false
