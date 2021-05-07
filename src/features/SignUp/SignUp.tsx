@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import styled from "styled-components/macro";
 import {InputText} from "../../components/InputText";
 import { Button } from "../../components/Button";
+import {setSignUpInProgress, singUpTC} from "./sign-up-reducer";
 
 type FormikErrorType = {
     email?: string
@@ -35,6 +36,7 @@ export const SignUp: React.FC = () => {
         },
         onSubmit: values => {
             console.log(values)
+            dispatch(singUpTC(values.email, values.password))
             formik.resetForm()
         }
     })
