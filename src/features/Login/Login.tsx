@@ -53,13 +53,11 @@ export const Login: React.FC = () => {
 
     return <>
         <StyledForm onSubmit={formik.handleSubmit}>
-            <InputText type="email" {...formik.getFieldProps('email')}/>
-            {formik.touched.email && formik.errors.email && <div>{formik.errors.email}</div>}
+            <InputText error={formik.errors.email} type="email" {...formik.getFieldProps('email')}/>
             <div>
                 <NavLink to={'/recover-password'}>Forgot password?</NavLink>
             </div>
-            <InputText type="password" {...formik.getFieldProps('password')}/>
-            {formik.touched.password && formik.errors.email && <div>{formik.errors.password}</div>}
+            <InputText error={formik.errors.password} type="password" {...formik.getFieldProps('password')}/>
             Remember me <Checkbox {...formik.getFieldProps('rememberMe')}/>
             <Button>Login</Button>
         </StyledForm>
