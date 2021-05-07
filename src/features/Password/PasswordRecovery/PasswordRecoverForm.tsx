@@ -7,6 +7,7 @@ import styled from "styled-components/macro";
 import {passwordRecoveryTC} from "./password-recovery-reducer";
 import {AppRootStateType} from "../../../app/store";
 import {Redirect} from "react-router-dom";
+import {PATHS} from "../../../api/PATHS";
 
 export const PasswordRecoverForm: React.FC = () => {
 
@@ -33,7 +34,7 @@ export const PasswordRecoverForm: React.FC = () => {
     });
 
     if (forgotPassword) {
-        return <Redirect to={'/create-password'} />
+        return <Redirect to={PATHS.createPassword} />
     }
 
     return (

@@ -3,29 +3,29 @@ import {Dispatch} from "redux";
 import {signUpAPI} from "../../api/cards-api";
 
 const initialState = {
-    signUpInProgress: false
+    isSignedUp: false
 }
 
 const slice = createSlice({
     name: 'signUp',
     initialState: initialState,
     reducers: {
-        setSignUpInProgress(state, action: PayloadAction<{signUpInProgress: boolean}>) {
-            state.signUpInProgress = action.payload.signUpInProgress
+        setIsSignedUp(state, action: PayloadAction<{isSignedUp: boolean}>) {
+            state.isSignedUp = action.payload.isSignedUp
         }
     }
 })
 
 export const SignUpReducer = slice.reducer
 
-export const {setSignUpInProgress} = slice.actions
+export const {setIsSignedUp} = slice.actions
 
 // thunks
 export const singUpTC = (email: string, password: string) => (dispatch: Dispatch) => {
-    setSignUpInProgress({signUpInProgress: true})
+    setIsSignedUp({isSignedUp: true})
     signUpAPI.register(email, password)
         .then(() => {
-            setSignUpInProgress({signUpInProgress: false})
+            setIsSignedUp({isSignedUp: true})
         })
         .catch(e => {
             const error = e.response

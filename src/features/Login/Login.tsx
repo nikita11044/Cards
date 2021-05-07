@@ -8,6 +8,7 @@ import styled from "styled-components/macro";
 import {InputText} from "../../components/InputText";
 import {Checkbox} from "../../components/Checkbox";
 import { Button } from "../../components/Button";
+import {PATHS} from "../../api/PATHS";
 
 type FormikErrorType = {
     email?: string
@@ -48,21 +49,21 @@ export const Login: React.FC = () => {
     })
 
     if (isLoggedIn) {
-        return <Redirect to={'/profile'}/>
+        return <Redirect to={PATHS.profile}/>
     }
 
     return <>
         <StyledForm onSubmit={formik.handleSubmit}>
             <InputText error={formik.errors.email} type="email" {...formik.getFieldProps('email')}/>
             <div>
-                <NavLink to={'/recover-password'}>Forgot password?</NavLink>
+                <NavLink to={PATHS.recoverPassword}>Forgot password?</NavLink>
             </div>
             <InputText error={formik.errors.password} type="password" {...formik.getFieldProps('password')}/>
             Remember me <Checkbox {...formik.getFieldProps('rememberMe')}/>
             <Button>Login</Button>
         </StyledForm>
         <div>
-            <NavLink to={'/sign-up'}>Sign up</NavLink>
+            <NavLink to={PATHS.signUp}>Sign up</NavLink>
         </div>
     </>
 }

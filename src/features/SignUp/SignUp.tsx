@@ -1,10 +1,13 @@
 import React, {useEffect} from "react"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import styled from "styled-components/macro";
 import {InputText} from "../../components/InputText";
 import { Button } from "../../components/Button";
-import {setSignUpInProgress, singUpTC} from "./sign-up-reducer";
+import {setIsSignedUp, singUpTC} from "./sign-up-reducer";
+import {AppRootStateType} from "../../app/store";
+import {Redirect} from "react-router-dom";
+import {PATHS} from "../../api/PATHS";
 
 type FormikErrorType = {
     email?: string
@@ -13,6 +16,7 @@ type FormikErrorType = {
 
 export const SignUp: React.FC = () => {
 
+    const isSignedUp = useSelector<AppRootStateType, boolean>(state => state.signUp.isSignedUp)
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -40,6 +44,10 @@ export const SignUp: React.FC = () => {
             formik.resetForm()
         }
     })
+
+    if (isSignedUp) {
+        return <Redirect to={PATHS.login}/>
+    }
 
     return <>
         <h1>SIGN UP</h1>
