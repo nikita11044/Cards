@@ -6,7 +6,7 @@ import {Redirect} from "react-router-dom";
 export const Profile: React.FC = () => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const name = useSelector<AppRootStateType, string>(state => state.profile.name)
-    const avatar = useSelector<AppRootStateType, string>(state => state.profile.avatar)
+    const avatar = useSelector<AppRootStateType, string | undefined>(state => state.profile.avatar)
 
     if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
