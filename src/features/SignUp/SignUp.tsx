@@ -43,7 +43,9 @@ export const SignUp: React.FC = () => {
         <h1>SIGN UP</h1>
         <StyledForm onSubmit={formik.handleSubmit}>
             <InputText type="email" {...formik.getFieldProps('email')}/>
+            {formik.touched.email && formik.errors.email && <div>{formik.errors.email}</div>}
             <InputText type="password" {...formik.getFieldProps('password')}/>
+            {formik.touched.password && formik.errors.email && <div>{formik.errors.password}</div>}
             <Button>Sign Up</Button>
         </StyledForm>
     </>
