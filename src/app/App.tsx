@@ -14,10 +14,10 @@ function App() {
             <h1>CARDS APP</h1>
             <header>
                 <div><NavLink to={PATHS.profile}>profile</NavLink></div>
-                <div><NavLink to={PATHS.login}></NavLink>login</div>
-                <div><NavLink to={PATHS.createPassword}></NavLink>createPassword</div>
-                <div><NavLink to={PATHS.recoverPassword}></NavLink>recoverPassword</div>
-                <div><NavLink to={PATHS.signUp}></NavLink>signUp</div>
+                <div><NavLink to={PATHS.login}>login</NavLink></div>
+                <div><NavLink to={PATHS.createPassword}>createPassword</NavLink></div>
+                <div><NavLink to={PATHS.recoverPassword}>recoverPassword</NavLink></div>
+                <div><NavLink to={PATHS.signUp}>signUp</NavLink></div>
             </header>
             <Switch>
                 <Route exact path={PATHS.main} render={() => <Profile/>}/>
