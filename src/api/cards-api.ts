@@ -13,7 +13,7 @@ export const cardsAPI = {
 
 export const passwordAPI = {
     recover(email: string, from: string) {
-        return instance.post<PassportRecoveryResponseType>('auth/forgot', {email, from, message: `<div style="background-color: lime; padding: 15px">error: string;password recovery link:<a href='http://localhost:3000/#/set-new-password/$token$'></a>link</a></div>`})
+        return instance.post<PassportRecoveryResponseType>('auth/forgot', {email, from, message: `<div style="background-color: lime; padding: 15px">error: string;password recovery link:<a href='https://neko-back.herokuapp.com/2.0/#/set-new-password/$token$'></a>link</a></div>`})
     }
 }
 

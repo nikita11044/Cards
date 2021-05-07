@@ -25,6 +25,7 @@ export const {setForgotPassword} = passwordRecoverSlice.actions;
 export const passwordRecoveryTC = (email: string, from: string) => (dispatch: Dispatch) => {
     passwordAPI.recover(email, from)
         .then(() => {
+            debugger
             setForgotPassword({forgotPassword: true})
         })
         .catch(e => {
