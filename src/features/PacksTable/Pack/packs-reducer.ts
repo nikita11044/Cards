@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AddPackParamsType, GetPacksParamsType, packsAPI, UpdatePackParamsType} from "../../api/api";
+import {AddPackParamsType, GetPacksParamsType, packsAPI, UpdatePackParamsType} from "../../../api/api";
 import {Dispatch} from "redux";
 
 const initialState: Array<CardPackType> = []

@@ -5,5 +5,6 @@ export enum PATHS {
     createPassword = '/create-password',
     recoverPassword = '/recover-password',
     signUp = '/sign-up',
-    pageNotFound = '/404'
+    pageNotFound = '/404',
+    packs = '/packs'
 }

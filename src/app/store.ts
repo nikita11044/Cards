@@ -6,6 +6,8 @@ import {configureStore} from "@reduxjs/toolkit";
 import {PasswordRecoveryReducer} from "../features/Password/PasswordRecovery/password-recovery-reducer";
 import {ProfileReducer} from "../features/Profile/profile-reducer";
 import {SignUpReducer} from "../features/SignUp/sign-up-reducer";
+import {packsReducer} from "../features/PacksTable/Pack/packs-reducer";
+import {cardsReducer} from "../features/CardsTable/Card/cards-reducer";
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
@@ -13,7 +15,9 @@ const rootReducer = combineReducers({
     // createPassword: PasswordCreationReducer,
     recoverPassword: PasswordRecoveryReducer,
     profile: ProfileReducer,
-    signUp: SignUpReducer
+    signUp: SignUpReducer,
+    packs: packsReducer,
+    cards: cardsReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

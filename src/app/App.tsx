@@ -7,6 +7,7 @@ import {PasswordRecovery} from "../features/Password/PasswordRecovery/PasswordRe
 import {Profile} from "../features/Profile/Profile";
 import {SignUp} from "../features/SignUp/SignUp";
 import {PATHS} from "../api/PATHS";
+import {PacksTable} from "../features/PacksTable/PacksTable";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <div><NavLink to={PATHS.createPassword}>createPassword</NavLink></div>
                     <div><NavLink to={PATHS.recoverPassword}>recoverPassword</NavLink></div>
                     <div><NavLink to={PATHS.signUp}>signUp</NavLink></div>
+                    <div><NavLink to={PATHS.packs}>packs</NavLink></div>
                 </nav>
             </header>
             <div className="contentContainer">
@@ -29,6 +31,7 @@ function App() {
                     <Route path={PATHS.createPassword} render={() => <PasswordCreation/>}/>
                     <Route path={PATHS.recoverPassword} render={() => <PasswordRecovery/>}/>
                     <Route path={PATHS.signUp} render={() => <SignUp/>}/>
+                    <Route path={PATHS.packs} render={() => <PacksTable/>}/>
                     <Route path={PATHS.pageNotFound} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
                     <Redirect from={'*'} to={PATHS.pageNotFound}/>
                 </Switch>

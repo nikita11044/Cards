@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {setCardPacks} from "../Packs/packs-reducer";
-import {AddCardParamsType, cardsAPI, GetCardsParamsType, UpdateCardParamsType} from "../../api/api";
+import {setCardPacks} from "../../PacksTable/Pack/packs-reducer";
+import {AddCardParamsType, cardsAPI, GetCardsParamsType, UpdateCardParamsType} from "../../../api/api";
 import {Dispatch} from "redux";
 
 const initialState: InitialStateType = {}

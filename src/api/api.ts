@@ -1,6 +1,6 @@
 import axios from 'axios'
-import {CardPackType} from "../features/Packs/packs-reducer";
-import {CardType} from "../features/Cards/cards-reducer";
+import {CardPackType} from "../features/PacksTable/Pack/packs-reducer";
+import {CardType} from "../features/CardsTable/Card/cards-reducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
