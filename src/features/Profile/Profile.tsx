@@ -13,8 +13,13 @@ export const Profile: React.FC = () => {
         return <Redirect to={PATHS.login}/>
     }
 
-    return <div>
-        Avatar: {avatar}
-        Name: {name}
-    </div>
+    return <>
+        <h2>Profile</h2>
+        <div className="imgWrapper">
+            <img src={avatar} alt="avatar"/>
+        </div>
+        <div>
+            Name: {name}
+        </div>
+    </>
 }

@@ -50,7 +50,7 @@ export const SignUp: React.FC = () => {
     }
 
     return <>
-        <h1>SIGN UP</h1>
+        <h2>Sign up</h2>
         <StyledForm onSubmit={formik.handleSubmit}>
             <InputText error={formik.errors.email} type="email" {...formik.getFieldProps('email')}/>
             <InputText error={formik.errors.password} type="password" {...formik.getFieldProps('password')}/>

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
-import {signUpAPI} from "../../api/cards-api";
+import {signUpAPI} from "../../api/api";
 
 const initialState = {
     isSignedUp: false

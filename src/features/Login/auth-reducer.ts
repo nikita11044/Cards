@@ -1,4 +1,4 @@
-import {cardsAPI, LoginParamsType} from "../../api/cards-api";
+import {loginAPI, LoginParamsType} from "../../api/api";
 import {Dispatch} from "redux";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setProfile} from "../Profile/profile-reducer";
@@ -21,7 +21,7 @@ export const AuthReducer = slice.reducer
 
 // thunks
 export const loginTC = (loginParams: LoginParamsType) => (dispatch: Dispatch) => {
-    cardsAPI.login(loginParams)
+    loginAPI.login(loginParams)
         .then((response) => {
             const {_id, email, name, avatar} = response.data
             dispatch(setProfile({_id, email, name, avatar}))

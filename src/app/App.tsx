@@ -11,24 +11,28 @@ import {PATHS} from "../api/PATHS";
 function App() {
     return (
         <div className="App">
-            <h1>CARDS APP</h1>
             <header>
-                <div><NavLink to={PATHS.profile}>profile</NavLink></div>
-                <div><NavLink to={PATHS.login}>login</NavLink></div>
-                <div><NavLink to={PATHS.createPassword}>createPassword</NavLink></div>
-                <div><NavLink to={PATHS.recoverPassword}>recoverPassword</NavLink></div>
-                <div><NavLink to={PATHS.signUp}>signUp</NavLink></div>
+                <h1>CARDS APP</h1>
+                <nav className="nav">
+                    <div><NavLink to={PATHS.profile}>profile</NavLink></div>
+                    <div><NavLink to={PATHS.login}>login</NavLink></div>
+                    <div><NavLink to={PATHS.createPassword}>createPassword</NavLink></div>
+                    <div><NavLink to={PATHS.recoverPassword}>recoverPassword</NavLink></div>
+                    <div><NavLink to={PATHS.signUp}>signUp</NavLink></div>
+                </nav>
             </header>
-            <Switch>
-                <Route exact path={PATHS.main} render={() => <Profile/>}/>
-                <Route path={PATHS.profile} render={() => <Profile/>}/>
-                <Route path={PATHS.login} render={() => <Login/>}/>
-                <Route path={PATHS.createPassword} render={() => <PasswordCreation/>}/>
-                <Route path={PATHS.recoverPassword} render={() => <PasswordRecovery/>}/>
-                <Route path={PATHS.signUp} render={() => <SignUp/>}/>
-                <Route path={PATHS.pageNotFound} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
-                <Redirect from={'*'} to={PATHS.pageNotFound}/>
-            </Switch>
+            <div className="contentContainer">
+                <Switch>
+                    <Route exact path={PATHS.main} render={() => <Profile/>}/>
+                    <Route path={PATHS.profile} render={() => <Profile/>}/>
+                    <Route path={PATHS.login} render={() => <Login/>}/>
+                    <Route path={PATHS.createPassword} render={() => <PasswordCreation/>}/>
+                    <Route path={PATHS.recoverPassword} render={() => <PasswordRecovery/>}/>
+                    <Route path={PATHS.signUp} render={() => <SignUp/>}/>
+                    <Route path={PATHS.pageNotFound} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
+                    <Redirect from={'*'} to={PATHS.pageNotFound}/>
+                </Switch>
+            </div>
         </div>
     );
 }

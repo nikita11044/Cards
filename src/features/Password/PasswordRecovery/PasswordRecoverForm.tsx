@@ -1,12 +1,12 @@
 import { InputText } from "../../../components/InputText";
 import { Button } from "../../../components/Button";
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React from "react";
+import {useDispatch} from "react-redux";
 import { useFormik } from "formik";
 import styled from "styled-components/macro";
 import {passwordRecoveryTC} from "./password-recovery-reducer";
 
-export const PasswordRecoverForm: React.FC = () => {
+export const PasswordRecoverForm = React.memo(() => {
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -36,11 +36,12 @@ export const PasswordRecoverForm: React.FC = () => {
             <Button type="submit">Recover</Button>
         </StyledForm>
     );
-};
+})
 
 // Styles
 const StyledForm = styled.form`
   display: flex;
+  align-items: center;
   flex-direction: column;
   flex-basis: 400px;
 `;

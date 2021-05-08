@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://nikita11044.github.io/cards",
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "@reduxjs/toolkit": "^1.5.1",
     "@scampersand/styled-components.macro": "^0.1.0",
     "@testing-library/jest-dom": "^5.11.4",

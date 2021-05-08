@@ -3,12 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import {loginTC} from "./auth-reducer";
 import {AppRootStateType} from "../../app/store";
-import {NavLink, Redirect } from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import styled from "styled-components/macro";
 import {InputText} from "../../components/InputText";
 import {Checkbox} from "../../components/Checkbox";
-import { Button } from "../../components/Button";
 import {PATHS} from "../../api/PATHS";
+import { Button } from "../../components/Button";
 
 type FormikErrorType = {
     email?: string
@@ -53,11 +53,10 @@ export const Login: React.FC = () => {
     }
 
     return <>
+        <h2>Sign in</h2>
         <StyledForm onSubmit={formik.handleSubmit}>
             <InputText error={formik.errors.email} type="email" {...formik.getFieldProps('email')}/>
-            <div>
-                <NavLink to={PATHS.recoverPassword}>Forgot password?</NavLink>
-            </div>
+            <div><NavLink to={PATHS.recoverPassword}>Forgot password?</NavLink></div>
             <InputText error={formik.errors.password} type="password" {...formik.getFieldProps('password')}/>
             Remember me <Checkbox {...formik.getFieldProps('rememberMe')}/>
             <Button>Login</Button>
