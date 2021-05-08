@@ -31,25 +31,25 @@ export const {setCards} = slice.actions
 export const fetchCardsTC = (getCardsParams: GetCardsParamsType) => (dispatch: Dispatch) => {
     cardsAPI.getCards(getCardsParams)
         .then(response => {
-            setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardPack_id})
+            dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardPack_id}))
         })
 }
 
-export const addCardTC = (newCard: AddCardParamsType) => (dispatch: Dispatch) => {
+export const addCardTC = (newCard: AddCardParamsType) => () => {
     cardsAPI.addCard(newCard)
         .then(() => {
             fetchCardsTC({cardPack_id: newCard.cardsPack_id})
         })
 }
 
-export const updateCardTC = (updatedCardData: UpdateCardParamsType) => (dispatch: Dispatch) => {
+export const updateCardTC = (updatedCardData: UpdateCardParamsType) => () => {
     cardsAPI.updateCard(updatedCardData)
         .then(() => {
             fetchCardsTC({cardPack_id: updatedCardData.cardsPack_id})
         })
 }
 
-export const deleteCardTC = (cardId: string, cardsPack_id: string) => (dispatch: Dispatch) => {
+export const deleteCardTC = (cardId: string, cardsPack_id: string) => () => {
     cardsAPI.deleteCard(cardId)
         .then(() => {
             fetchCardsTC({cardPack_id: cardsPack_id})

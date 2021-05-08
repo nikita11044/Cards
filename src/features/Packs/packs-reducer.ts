@@ -23,25 +23,25 @@ export const {setCardPacks} = slice.actions
 export const fetchPacksTC = (getPacksParams: GetPacksParamsType) => (dispatch: Dispatch) => {
     packsAPI.getPacks(getPacksParams)
         .then(response => {
-            setCardPacks({cardPacks: response.data.cardPacks})
+            dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
         })
 }
 
-export const addPackTC = (newPack: AddPackParamsType) => (dispatch: Dispatch) => {
+export const addPackTC = (newPack: AddPackParamsType) => () => {
     packsAPI.addPack(newPack)
         .then(() => {
             fetchPacksTC({})
         })
 }
 
-export const updatePackTC = (updatedPackData: UpdatePackParamsType) => (dispatch: Dispatch) => {
+export const updatePackTC = (updatedPackData: UpdatePackParamsType) => () => {
     packsAPI.updatePack(updatedPackData)
         .then(() => {
             fetchPacksTC({})
         })
 }
 
-export const deletePackTC = (packId: string) => (dispatch: Dispatch) => {
+export const deletePackTC = (packId: string) => () => {
     packsAPI.deletePack(packId)
         .then(() => {
             fetchPacksTC({})
