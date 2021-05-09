@@ -3,7 +3,7 @@ import {Button} from "../../../components/Button";
 import React from "react";
 import {StyledForm} from "../../../components/StyledForm";
 import {useFormik} from "formik";
-import {addPackTC} from "../Pack/packs-reducer";
+import {addPackTC, fetchPacksTC} from "../Pack/packs-reducer";
 import {useDispatch} from "react-redux";
 
 export const AddPackForm: React.FC = () => {
@@ -25,7 +25,7 @@ export const AddPackForm: React.FC = () => {
         },
         onSubmit: values => {
             console.log(values)
-            dispatch( addPackTC(values) )
+            dispatch(addPackTC(values))
         }
     })
 

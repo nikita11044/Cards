@@ -1,6 +1,7 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
 import {AddPackParamsType, GetPacksParamsType, packsAPI, UpdatePackParamsType} from "../../../api/api";
 import {Dispatch} from "redux";
+import {AppRootStateType} from "../../../app/store";
 
 const initialState: Array<CardPackType> = []
 
@@ -20,17 +21,20 @@ export const {setCardPacks} = slice.actions
 
 // * Thunks
 
-export const fetchPacksTC = (getPacksParams: GetPacksParamsType) => (dispatch: Dispatch) => {
+export const fetchPacksTC = (getPacksParams: GetPacksParamsType): ThunkType => (dispatch: Dispatch) => {
     packsAPI.getPacks(getPacksParams)
         .then(response => {
             dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
         })
 }
 
-export const addPackTC = (newPack: AddPackParamsType) => () => {
+export const addPackTC = (newPack: AddPackParamsType): ThunkType => (dispatch: Dispatch) => {
     packsAPI.addPack(newPack)
         .then(() => {
-            fetchPacksTC({})
+            return packsAPI.getPacks({})
+        })
+        .then(response => {
+            dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
         })
 }
 
@@ -64,3 +68,11 @@ export type CardPackType = {
     updated: string
     __v: number
 }
+
+type SliceActions<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => infer A ? A : never;
+}[keyof T]
+
+type ActionTypes = SliceActions<typeof slice.actions>
+
+type ThunkType = ThunkAction<void,  AppRootStateType, unknown, ActionTypes>
