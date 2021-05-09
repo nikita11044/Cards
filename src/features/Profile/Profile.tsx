@@ -1,13 +1,24 @@
-import React from "react"
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react"
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {Redirect} from "react-router-dom";
 import {PATHS} from "../../api/PATHS";
+import {logoutTC} from "../Login/auth-reducer";
+import {getMe} from "./profile-reducer";
 
 export const Profile: React.FC = () => {
+    const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const name = useSelector<AppRootStateType, string>(state => state.profile.name)
     const avatar = useSelector<AppRootStateType, string | undefined>(state => state.profile.avatar)
+
+    useEffect(() => {
+        dispatch(getMe())
+    }, [])
+
+    const logoutHandler = () => {
+        dispatch(logoutTC())
+    }
 
     if (!isLoggedIn) {
         return <Redirect to={PATHS.login}/>
@@ -21,5 +32,6 @@ export const Profile: React.FC = () => {
         <div>
             Name: {name}
         </div>
+        {isLoggedIn && <button onClick={logoutHandler} >Logout</button>}
     </>
 }

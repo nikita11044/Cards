@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {CardPackType, fetchPacksTC } from "./Pack/packs-reducer";
 import {Pack} from "./Pack/Pack";
+import {AddPackForm} from "./AddPackForm/AddPackForm";
 
 export const PacksTable: React.FC = () => {
 
@@ -13,24 +14,31 @@ export const PacksTable: React.FC = () => {
         dispatch(fetchPacksTC({}))
     }, [])
 
-    return <table>
-        <thead>
-        <tr>
-            <th>Pack name</th>
-            <th>Cards count</th>
-            <th>Updated</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-            packs.map(pack => {
-                return <Pack
-                    name={pack.name}
-                    cardsCount={pack.cardsCount}
-                    updated={pack.updated}
-                />
-            })
-        }
-        </tbody>
-    </table>
+    return <div style={ {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'} }>
+        <table>
+            <thead>
+            <tr>
+                <th>Pack name</th>
+                <th>Cards count</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+            {packs.length === 0 && 'Waiting for your cards —ฅ/ᐠ.̫ .ᐟ\\ฅ—'}
+            {
+                packs.map(pack => {
+                    return <Pack
+                        key={pack._id}
+                        name={pack.name}
+                        cardsCount={pack.cardsCount}
+                        updated={pack.updated}
+                    />
+                })
+            }
+            </tbody>
+        </table>
+        <div style={ {display: 'flex', flexDirection: 'column', justifyContent: 'center'} }>
+            <AddPackForm/>
+        </div>
+    </div>
 }

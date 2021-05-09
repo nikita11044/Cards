@@ -10,6 +10,12 @@ const instance = axios.create({
 export const loginAPI = {
     login(loginParams: LoginParamsType) {
         return instance.post<LoginResponseType>('auth/login', loginParams)
+    },
+    me() {
+        return instance.post<any>('auth/me')
+    },
+    logout() {
+        return instance.delete<any>('auth/me')
     }
 }
 
@@ -42,7 +48,7 @@ export const packsAPI = {
         return instance.get<GetPacksResponseType>(`cards/pack?${packName}&${min}&${max}&${page}&${pageCount}&${user_id}`)
     },
     addPack(newPack: AddPackParamsType) {
-        return instance.post('cards/pack', newPack)
+        return instance.post('cards/pack', {cardsPack: newPack})
     },
     updatePack(updatedPackData: UpdatePackParamsType) {
         return instance.put('cards/pack', updatedPackData)
