@@ -13,24 +13,25 @@ export const PacksTable: React.FC = () => {
         dispatch(fetchPacksTC({}))
     }, [])
 
-    return <table>
-        <thead>
-        <tr>
-            <th>Pack name</th>
-            <th>Cards count</th>
-            <th>Updated</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-            packs.map(pack => {
-                return <Pack
-                    name={pack.name}
-                    cardsCount={pack.cardsCount}
-                    updated={pack.updated}
-                />
-            })
-        }
-        </tbody>
-    </table>
+    return <div style={{display: 'flex', justifyContent: 'center'}}>
+        <table>
+            <thead>
+            <tr>
+                <th>Pack name</th>
+                <th>Cards count</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+                packs.map(pack => {
+                    return <Pack
+                        name={pack.name}
+                        cardsCount={pack.cardsCount}
+                        updated={pack.updated}
+                    />
+                })
+            }
+            </tbody>
+        </table></div>
 }
