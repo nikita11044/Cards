@@ -29,6 +29,7 @@ export const PacksTable: React.FC = () => {
                 packs.map(pack => {
                     return <Pack
                         key={pack._id}
+                        packId={pack._id}
                         name={pack.name}
                         cardsCount={pack.cardsCount}
                         updated={pack.updated}

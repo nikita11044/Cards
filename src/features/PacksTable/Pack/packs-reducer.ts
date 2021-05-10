@@ -45,10 +45,13 @@ export const updatePackTC = (updatedPackData: UpdatePackParamsType) => () => {
         })
 }
 
-export const deletePackTC = (packId: string) => () => {
+export const deletePackTC = (packId: string) => (dispatch: Dispatch) => {
     packsAPI.deletePack(packId)
-        .then(() => {
-            fetchPacksTC({})
+        .then((res) => {
+            return packsAPI.getPacks({})
+        })
+        .then(response => {
+            dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
         })
 }
 

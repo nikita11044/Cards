@@ -54,7 +54,7 @@ export const packsAPI = {
         return instance.put('cards/pack', updatedPackData)
     },
     deletePack(packId: string) {
-        return instance.delete(`cards/pack?${packId}`)
+        return instance.delete(`cards/pack?id=${packId}`)
     }
 }
 
@@ -78,7 +78,7 @@ export const cardsAPI = {
         return instance.put('cards/card', updatedCardData)
     },
     deleteCard(cardId: string) {
-        return instance.delete(`cards/cars?${cardId}`)
+        return instance.delete(`cards/cars?id=${cardId}`)
     }
 }
 
