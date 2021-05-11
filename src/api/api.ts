@@ -38,20 +38,15 @@ export const signUpAPI = {
 export const packsAPI = {
     getPacks(getPacksParams: GetPacksParamsType) {
         const {
-            max,
-            min,
-            packName,
-            page,
-            pageCount,
             user_id
         } = getPacksParams
-        return instance.get<GetPacksResponseType>(`cards/pack?${packName}&${min}&${max}&${page}&${pageCount}&${user_id}`)
+        return instance.get<GetPacksResponseType>(`cards/pack?pageCount=1000&page=4&user_id=${user_id}&sortPacks=0updated`)
     },
     addPack(newPack: AddPackParamsType) {
         return instance.post('cards/pack', {cardsPack: newPack})
     },
     updatePack(updatedPackData: UpdatePackParamsType) {
-        return instance.put('cards/pack', updatedPackData)
+        return instance.put('cards/pack', {cardsPack: updatedPackData})
     },
     deletePack(packId: string) {
         return instance.delete(`cards/pack?id=${packId}`)
@@ -66,10 +61,16 @@ export const cardsAPI = {
             cardQuestion,
             max,
             min,
-            page,
-            pageCount
         } = getCardsParams
-        return instance.get<GetCardsResponseType>(`cards/card?${cardPack_id}&${cardQuestion}&${cardAnswer}&${min}&${max}&${page}&${pageCount}`)
+        return instance.get<GetCardsResponseType>(`cards/card?`
+            + `cardAnswer=${cardAnswer}`
+            + `&cardPack_id=${cardPack_id}`
+            + `&cardQuestion=${cardQuestion}`
+            + `&min=${min}`
+            + `&max=${max}`
+            + `&page=4`
+            + `&pageCount=1000`
+        )
     },
     addCard(newCard: AddCardParamsType) {
         return instance.post('cards/card', newCard)
@@ -122,11 +123,6 @@ type SignUpResponseType = {
 // ** packsAPI Types
 
 export type GetPacksParamsType = {
-    packName?: string
-    min?: number
-    max?: number
-    page?: number
-    pageCount?: number
     user_id?: string
 }
 
@@ -162,8 +158,6 @@ export type GetCardsParamsType = {
     cardPack_id: string
     min?: number
     max?: number
-    page?: number
-    pageCount?: number
 }
 
 export type GetCardsResponseType = {

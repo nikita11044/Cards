@@ -2,6 +2,7 @@ import {createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
 import {AddPackParamsType, GetPacksParamsType, packsAPI, UpdatePackParamsType} from "../../../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../app/store";
+import {setProfile} from "../../Profile/profile-reducer";
 
 const initialState: Array<CardPackType> = []
 
@@ -9,7 +10,7 @@ const slice = createSlice({
     name: 'packs',
     initialState: initialState,
     reducers: {
-        setCardPacks(state, action: PayloadAction<{cardPacks: CardPackType[]}>) {
+        setCardPacks(state, action: PayloadAction<{ cardPacks: CardPackType[] }>) {
             return action.payload.cardPacks.map(pack => ({...pack}))
         }
     }
@@ -28,27 +29,33 @@ export const fetchPacksTC = (getPacksParams: GetPacksParamsType): ThunkType => (
         })
 }
 
-export const addPackTC = (newPack: AddPackParamsType): ThunkType => (dispatch: Dispatch) => {
+export const addPackTC = (newPack: AddPackParamsType): ThunkType => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     packsAPI.addPack(newPack)
         .then(() => {
-            return packsAPI.getPacks({})
+            const packUser_id = getState().profile._id
+            return packsAPI.getPacks({user_id: packUser_id})
         })
         .then(response => {
             dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
         })
 }
 
-export const updatePackTC = (updatedPackData: UpdatePackParamsType) => () => {
+export const updatePackTC = (updatedPackData: UpdatePackParamsType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     packsAPI.updatePack(updatedPackData)
         .then(() => {
-            fetchPacksTC({})
+            const packUser_id = getState().profile._id
+            return packsAPI.getPacks({user_id: packUser_id})
+        })
+        .then(response => {
+            dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
         })
 }
 
-export const deletePackTC = (packId: string) => (dispatch: Dispatch) => {
+export const deletePackTC = (packId: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     packsAPI.deletePack(packId)
         .then((res) => {
-            return packsAPI.getPacks({})
+            const packUser_id = getState().profile._id
+            return packsAPI.getPacks({user_id: packUser_id})
         })
         .then(response => {
             dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
@@ -78,4 +85,4 @@ type SliceActions<T> = {
 
 type ActionTypes = SliceActions<typeof slice.actions>
 
-type ThunkType = ThunkAction<void,  AppRootStateType, unknown, ActionTypes>
+type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionTypes>

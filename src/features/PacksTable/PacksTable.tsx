@@ -7,11 +7,12 @@ import {AddPackForm} from "./AddPackForm/AddPackForm";
 
 export const PacksTable: React.FC = () => {
 
+    const packUser_id = useSelector<AppRootStateType, string>(state => state.profile._id)
     const packs = useSelector<AppRootStateType, Array<CardPackType>>(state => state.packs)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchPacksTC({}))
+        dispatch(fetchPacksTC({user_id: packUser_id}))
     }, [])
 
     return <div style={ {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'} }>
