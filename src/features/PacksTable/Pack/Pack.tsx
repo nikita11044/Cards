@@ -59,8 +59,8 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
     const deleteHandler = () => {
         dispatch(deletePackTC(packId))
     }
+    return<>
 
-    return <>
         <tr>
             <td>{name}</td>
             <td>{cardsCount}</td>
@@ -75,5 +75,6 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
         <Modal open={open} onClose={handleClose}>
             {body}
         </Modal>
+
     </>
 }

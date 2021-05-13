@@ -54,6 +54,10 @@ export const packsAPI = {
 }
 
 export const cardsAPI = {
+    getPacks(page: number) {
+        return instance.get<TypeResponsePacks>(`cards/pack?pageCount=100&page=${page}`)
+            .then(response => response.data)
+    },
     getCards(getCardsParams: GetCardsParamsType) {
         const {
             cardAnswer,
@@ -106,6 +110,32 @@ type LoginResponseType = {
     error?: string
 }
 
+export type TypeCards = {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    _id: string
+}
+export type TypeResponsePacks = {
+    cardPacks: TypeCards[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
 // ** passwordAPI Types
 
 type PassportRecoveryResponseType = {
