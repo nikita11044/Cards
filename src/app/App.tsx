@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import {Login} from "../features/Login/Login";
@@ -8,6 +8,7 @@ import {Profile} from "../features/Profile/Profile";
 import {SignUp} from "../features/SignUp/SignUp";
 import {PATHS} from "../api/PATHS";
 import {PacksTable} from "../features/PacksTable/PacksTable";
+import {useDispatch} from "react-redux";
 
 function App() {
     return (

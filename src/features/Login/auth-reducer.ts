@@ -34,6 +34,17 @@ export const loginTC = (loginParams: LoginParamsType) => (dispatch: Dispatch) =>
         })
 }
 
+export const logoutTC = () => (dispatch: Dispatch) => {
+    loginAPI.logout()
+        .then(() => {
+            dispatch(setIsLoggedIn({isLoggedIn: false}))
+        })
+        .catch(e => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console')
+        })
+}
 
 // actions
 export const {setIsLoggedIn} = slice.actions

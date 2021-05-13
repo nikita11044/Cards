@@ -15,7 +15,7 @@ const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(setCardPacks, (state, action) => {
-            action.payload.cardPacks.forEach(pack => {
+            action.payload.cardPacks.forEach((pack: { _id: string | number; }) => {
                 state[pack._id] = []
             })
         })

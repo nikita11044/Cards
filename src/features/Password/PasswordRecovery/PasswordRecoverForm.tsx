@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import { useFormik } from "formik";
 import styled from "styled-components/macro";
 import {passwordRecoveryTC} from "./password-recovery-reducer";
+import { StyledForm } from "../../../components/StyledForm";
 
 export const PasswordRecoverForm = React.memo(() => {
     const dispatch = useDispatch();
@@ -30,21 +31,11 @@ export const PasswordRecoverForm = React.memo(() => {
 
     return (
         <StyledForm onSubmit={formik.handleSubmit}>
-
             <InputText placeholder={"Email"} error={formik.errors.email} {...formik.getFieldProps("email")} />
-
             <Button type="submit">Recover</Button>
         </StyledForm>
     );
 })
-
-// Styles
-const StyledForm = styled.form`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  flex-basis: 400px;
-`;
 
 // Types
 type FormikErrorType = {

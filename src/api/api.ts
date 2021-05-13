@@ -10,6 +10,12 @@ const instance = axios.create({
 export const loginAPI = {
     login(loginParams: LoginParamsType) {
         return instance.post<LoginResponseType>('auth/login', loginParams)
+    },
+    me() {
+        return instance.post<any>('auth/me')
+    },
+    logout() {
+        return instance.delete<any>('auth/me')
     }
 }
 
@@ -32,27 +38,26 @@ export const signUpAPI = {
 export const packsAPI = {
     getPacks(getPacksParams: GetPacksParamsType) {
         const {
-            max,
-            min,
-            packName,
-            page,
-            pageCount,
             user_id
         } = getPacksParams
-        return instance.get<GetPacksResponseType>(`cards/pack?${packName}&${min}&${max}&${page}&${pageCount}&${user_id}`)
+        return instance.get<GetPacksResponseType>(`cards/pack?pageCount=1000&page=4&user_id=${user_id}&sortPacks=0updated`)
     },
     addPack(newPack: AddPackParamsType) {
-        return instance.post('cards/pack', newPack)
+        return instance.post('cards/pack', {cardsPack: newPack})
     },
     updatePack(updatedPackData: UpdatePackParamsType) {
-        return instance.put('cards/pack', updatedPackData)
+        return instance.put('cards/pack', {cardsPack: updatedPackData})
     },
     deletePack(packId: string) {
-        return instance.delete(`cards/pack?${packId}`)
+        return instance.delete(`cards/pack?id=${packId}`)
     }
 }
 
 export const cardsAPI = {
+    getPacks(page: number) {
+        return instance.get<TypeResponsePacks>(`cards/pack?pageCount=100&page=${page}`)
+            .then(response => response.data)
+    },
     getCards(getCardsParams: GetCardsParamsType) {
         const {
             cardAnswer,
@@ -60,10 +65,16 @@ export const cardsAPI = {
             cardQuestion,
             max,
             min,
-            page,
-            pageCount
         } = getCardsParams
-        return instance.get<GetCardsResponseType>(`cards/card?${cardPack_id}&${cardQuestion}&${cardAnswer}&${min}&${max}&${page}&${pageCount}`)
+        return instance.get<GetCardsResponseType>(`cards/card?`
+            + `cardAnswer=${cardAnswer}`
+            + `&cardPack_id=${cardPack_id}`
+            + `&cardQuestion=${cardQuestion}`
+            + `&min=${min}`
+            + `&max=${max}`
+            + `&page=4`
+            + `&pageCount=1000`
+        )
     },
     addCard(newCard: AddCardParamsType) {
         return instance.post('cards/card', newCard)
@@ -72,7 +83,7 @@ export const cardsAPI = {
         return instance.put('cards/card', updatedCardData)
     },
     deleteCard(cardId: string) {
-        return instance.delete(`cards/cars?${cardId}`)
+        return instance.delete(`cards/cars?id=${cardId}`)
     }
 }
 
@@ -99,6 +110,32 @@ type LoginResponseType = {
     error?: string
 }
 
+export type TypeCards = {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    _id: string
+}
+export type TypeResponsePacks = {
+    cardPacks: TypeCards[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
 // ** passwordAPI Types
 
 type PassportRecoveryResponseType = {
@@ -116,11 +153,6 @@ type SignUpResponseType = {
 // ** packsAPI Types
 
 export type GetPacksParamsType = {
-    packName?: string
-    min?: number
-    max?: number
-    page?: number
-    pageCount?: number
     user_id?: string
 }
 
@@ -156,8 +188,6 @@ export type GetCardsParamsType = {
     cardPack_id: string
     min?: number
     max?: number
-    page?: number
-    pageCount?: number
 }
 
 export type GetCardsResponseType = {
