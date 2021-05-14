@@ -41,3 +41,9 @@ export type InitialStateType = {
 }
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
+type SliceActions<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => infer A ? A : never;
+}[keyof T]
+
+export type AppActionTypes = SliceActions<typeof slice.actions>

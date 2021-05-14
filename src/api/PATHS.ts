@@ -1,10 +1,11 @@
 export enum PATHS {
-    main= '/cards',
+    main= '/',
     profile = '/profile',
     login = '/login',
     createPassword = '/create-password',
     recoverPassword = '/recover-password',
     signUp = '/sign-up',
     pageNotFound = '/404',
-    packs = '/packs'
+    packs = '/packsTable',
+    cards = '/cardsTable'
 }

@@ -1,7 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
-import {loginAPI} from "../../api/api";
+import {loginAPI, passwordAPI} from "../../api/api";
 import {setIsLoggedIn} from "../Login/auth-reducer";
+import {errorHandler} from "../../common/error-handler";
+import {setForgotPassword} from "../Password/PasswordRecovery/password-recovery-reducer";
+import {AppThunk} from "../../app/store";
 
 const initialState: InitialStateType = {
     _id: '',
@@ -25,18 +28,16 @@ const slice = createSlice({
 
 // thunks
 
-export const getMe = () => (dispatch: Dispatch) => {
-    loginAPI.me()
-        .then(res => {
-            const {_id, email, name, avatar} = res.data
-            dispatch(setProfile({_id, email, name, avatar}))
-            dispatch(setIsLoggedIn({isLoggedIn: true}))
-        })
-        .catch(e => {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', more details in the console')
-        })
+export const getMe = (): AppThunk => async (dispatch) => {
+    try {
+        const response = await loginAPI.me()
+        console.log(response)
+        const {_id, email, name, avatar} = response.data
+        dispatch(setProfile({_id, email, name, avatar}))
+        dispatch(setIsLoggedIn({isLoggedIn: true}))
+    } catch (e) {
+        errorHandler(e)
+    }
 }
 
 export const {setProfile} = slice.actions
@@ -49,3 +50,9 @@ type InitialStateType = {
     name: string
     avatar: string | undefined
 }
+
+type SliceActions<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => infer A ? A : never;
+}[keyof T]
+
+export type ProfileActionTypes = SliceActions<typeof slice.actions>

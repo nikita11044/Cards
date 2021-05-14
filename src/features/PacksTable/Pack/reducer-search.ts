@@ -25,7 +25,6 @@ export const reducerSearch =
 //ActionCreator
 //???
 export const cardNameAC = (searchCardName: string) => ({type: 'SEARCH/CHANGE-TEXT-SEARCH', searchCardName} as const)
-
 export const cardCountAC = (count: number) => ({type: 'SEARCH/COUNT-OF-CARD',count} as const)
 export const pagesListAC = (pagesList: number) => ({type: 'SEARCH/PAGE-COUNT',pagesList} as const)
 

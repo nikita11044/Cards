@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Button} from "../../../components/Button";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {deletePackTC} from "./packs-reducer";
 import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core";
 import {UpdatePackForm} from "../UpdatePackForm/UpdatePackForm";
+import {PATHS} from "../../../api/PATHS";
+import { NavLink } from "react-router-dom";
 
 type PackPropsType = {
     packId: string
@@ -49,7 +50,6 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
     };
     const body = (
         <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Update pack</h2>
             <UpdatePackForm _id={packId} modalCloseHandler={handleClose}/>
         </div>
     );
@@ -66,10 +66,13 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
             <td>{cardsCount}</td>
             <td>{updated}</td>
             <td>
-                <button type="button"  onClick={deleteHandler}>Delete</button>
+                <button type="button" onClick={deleteHandler}>Delete</button>
             </td>
             <td>
                 <button type="button" onClick={handleOpen}>Update</button>
+            </td>
+            <td>
+                <NavLink to={PATHS.cards + `/${packId}`}>Cards</NavLink>
             </td>
         </tr>
         <Modal open={open} onClose={handleClose}>

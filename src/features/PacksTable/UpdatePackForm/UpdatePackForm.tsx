@@ -40,7 +40,7 @@ export const UpdatePackForm: React.FC<UpdatePackFormType> = ({_id, modalCloseHan
     return <div style={{marginTop: '20px'}}>
         <h3>Update pack</h3>
         <StyledForm onSubmit={formik.handleSubmit}>
-            <InputText placeholder={"name"} error={formik.errors.name} {...formik.getFieldProps("name")} />
+            <InputText placeholder={"Change name"} error={formik.errors.name} {...formik.getFieldProps("name")} />
             <Button type="submit">Update pack</Button>
         </StyledForm>
     </div>

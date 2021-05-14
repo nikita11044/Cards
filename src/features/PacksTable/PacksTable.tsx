@@ -5,15 +5,18 @@ import {CardPackType, fetchPacksTC } from "./Pack/packs-reducer";
 import {Pack} from "./Pack/Pack";
 import {AddPackForm} from "./AddPackForm/AddPackForm";
 import  SuperDoubleRange  from "./SuperDoubleRange";
-//import {Pagination} from 'antd';
 import Pagination from "./Pagination";
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
+import {getMe} from "../Profile/profile-reducer";
+import {Redirect} from "react-router-dom";
+import {PATHS} from "../../api/PATHS";
 type TypeSort = 'max' | 'min' | 'middle';
 
 
 export const PacksTable: React.FC = () => {
 
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const packUser_id = useSelector<AppRootStateType, string>(state => state.profile._id)
     const packs = useSelector<AppRootStateType, Array<CardPackType>>(state => state.packs)
     const dispatch = useDispatch()
@@ -24,7 +27,10 @@ export const PacksTable: React.FC = () => {
     let [sortPacks, setSortPacks] = useState<TypeSort>("middle");
 
     useEffect(() => {
-        dispatch(fetchPacksTC({user_id: packUser_id}))
+        dispatch(getMe())
+        if(isLoggedIn) {
+            dispatch(fetchPacksTC({user_id: packUser_id}))
+        }
     }, [])
     //const [pageCount, setPageCount] = useState<number>(10);
 
@@ -34,6 +40,11 @@ export const PacksTable: React.FC = () => {
     const sortMin = () => {
         setSortPacks("min")
     }
+
+    if (!isLoggedIn) {
+        return <Redirect to={PATHS.login}/>
+    }
+
     return <div style={ {display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'} }>
 
         <div>

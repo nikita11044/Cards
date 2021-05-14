@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setCardPacks} from "../../PacksTable/Pack/packs-reducer";
 import {AddCardParamsType, cardsAPI, GetCardsParamsType, UpdateCardParamsType} from "../../../api/api";
-import {Dispatch} from "redux";
+import {errorHandler} from "../../../common/error-handler";
+import {AppThunk} from "../../../app/store";
 
 const initialState: InitialStateType = {}
 
@@ -9,7 +10,7 @@ const slice = createSlice({
     name: 'cards',
     initialState: initialState,
     reducers: {
-        setCards(state, action: PayloadAction<{cards: CardType[], cardsPack_id: string}>) {
+        setCards(state, action: PayloadAction<{ cards: CardType[], cardsPack_id: string }>) {
             state[action.payload.cardsPack_id] = action.payload.cards
         }
     },
@@ -28,32 +29,40 @@ export const {setCards} = slice.actions
 
 // * Thunks
 
-export const fetchCardsTC = (getCardsParams: GetCardsParamsType) => (dispatch: Dispatch) => {
-    cardsAPI.getCards(getCardsParams)
-        .then(response => {
-            dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardPack_id}))
-        })
+export const fetchCardsTC =  (getCardsParams: GetCardsParamsType): AppThunk => async (dispatch) => {
+    try {
+        const response = await cardsAPI.getCards(getCardsParams)
+        dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardPack_id}))
+    } catch (e) {
+        errorHandler(e)
+    }
 }
 
-export const addCardTC = (newCard: AddCardParamsType) => () => {
-    cardsAPI.addCard(newCard)
-        .then(() => {
-            fetchCardsTC({cardPack_id: newCard.cardsPack_id})
-        })
+export const addCardTC = (newCard: AddCardParamsType, cardPack_id: string): AppThunk => async (dispatch) => {
+    try {
+        await cardsAPI.addCard(newCard)
+        dispatch(fetchCardsTC({cardPack_id}))
+    } catch (e) {
+        errorHandler(e)
+    }
 }
 
-export const updateCardTC = (updatedCardData: UpdateCardParamsType) => () => {
-    cardsAPI.updateCard(updatedCardData)
-        .then(() => {
-            fetchCardsTC({cardPack_id: updatedCardData.cardsPack_id})
-        })
+export const updateCardTC = (updatedCardData: UpdateCardParamsType): AppThunk => async (dispatch) => {
+    try {
+        await cardsAPI.updateCard(updatedCardData)
+        dispatch(fetchCardsTC({cardPack_id: updatedCardData.cardPack_id}))
+    } catch (e) {
+        errorHandler(e)
+    }
 }
 
-export const deleteCardTC = (cardId: string, cardsPack_id: string) => () => {
-    cardsAPI.deleteCard(cardId)
-        .then(() => {
-            fetchCardsTC({cardPack_id: cardsPack_id})
-        })
+export const deleteCardTC = (cardId: string, cardPack_id: string): AppThunk => async (dispatch) => {
+    try {
+        await cardsAPI.deleteCard(cardId)
+        dispatch(fetchCardsTC({cardPack_id}))
+    } catch (e) {
+        errorHandler(e)
+    }
 }
 
 // * Types
@@ -65,7 +74,7 @@ type InitialStateType = {
 export type CardType = {
     answer: string
     question: string
-    cardPack_id: string
+    cardsPack_id: string
     grade: number
     rating: number
     shots: number
@@ -75,3 +84,9 @@ export type CardType = {
     updated: string
     _id: string
 }
+
+type SliceActions<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => infer A ? A : never;
+}[keyof T]
+
+export type CardsActionTypes = SliceActions<typeof slice.actions>

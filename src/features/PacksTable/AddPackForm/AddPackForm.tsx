@@ -26,6 +26,7 @@ export const AddPackForm: React.FC = () => {
         onSubmit: values => {
             console.log(values)
             dispatch(addPackTC(values))
+            formik.resetForm()
         }
     })
 

@@ -33,3 +33,11 @@ export const singUpTC = (email: string, password: string) => (dispatch: Dispatch
                 : (e.message + ', more details in the console')
         })
 }
+
+// * Types
+
+type SliceActions<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => infer A ? A : never;
+}[keyof T]
+
+export type SignUpActionTypes = SliceActions<typeof slice.actions>

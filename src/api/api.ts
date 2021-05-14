@@ -54,36 +54,22 @@ export const packsAPI = {
 }
 
 export const cardsAPI = {
-    getPacks(page: number) {
-        return instance.get<TypeResponsePacks>(`cards/pack?pageCount=100&page=${page}`)
-            .then(response => response.data)
-    },
     getCards(getCardsParams: GetCardsParamsType) {
         const {
-            cardAnswer,
-            cardPack_id,
-            cardQuestion,
-            max,
-            min,
+            cardPack_id
         } = getCardsParams
         return instance.get<GetCardsResponseType>(`cards/card?`
-            + `cardAnswer=${cardAnswer}`
-            + `&cardPack_id=${cardPack_id}`
-            + `&cardQuestion=${cardQuestion}`
-            + `&min=${min}`
-            + `&max=${max}`
-            + `&page=4`
-            + `&pageCount=1000`
+            + `cardsPack_id=${cardPack_id}`
         )
     },
     addCard(newCard: AddCardParamsType) {
-        return instance.post('cards/card', newCard)
+        return instance.post('cards/card', {card: newCard})
     },
     updateCard(updatedCardData: UpdateCardParamsType) {
-        return instance.put('cards/card', updatedCardData)
+        return instance.put('cards/card', {card: updatedCardData})
     },
     deleteCard(cardId: string) {
-        return instance.delete(`cards/cars?id=${cardId}`)
+        return instance.delete(`cards/card?id=${cardId}`)
     }
 }
 
@@ -183,8 +169,6 @@ export type UpdatePackParamsType = {
 // ** cardsAPI Types
 
 export type GetCardsParamsType = {
-    cardAnswer?: string
-    cardQuestion?: string
     cardPack_id: string
     min?: number
     max?: number
@@ -214,8 +198,7 @@ export type AddCardParamsType = {
 }
 
 export type UpdateCardParamsType = {
-    _id: string
-    cardsPack_id: string
+    cardPack_id: string
     question?: string
-    comments?: string
+    answer?: string
 }
