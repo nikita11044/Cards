@@ -9,6 +9,7 @@ import {SignUp} from "../features/SignUp/SignUp";
 import {PATHS} from "../api/PATHS";
 import {PacksTable} from "../features/PacksTable/PacksTable";
 import { CardsTable } from '../features/CardsTable/CardsTable';
+import {LearnPage} from "../features/LearnPage/LearnPage";
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                     <Route path={PATHS.signUp} render={() => <SignUp/>}/>
                     <Route path={PATHS.packs} render={() => <PacksTable/>}/>
                     <Route exact path={PATHS.cards + '/:packId'} render={() => <CardsTable/>}/>
+                    <Route exact path={PATHS.learn + '/:packId'} render={() => <LearnPage/>}/>
                     <Route path={PATHS.pageNotFound} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
                     <Redirect from={'*'} to={PATHS.pageNotFound}/>
                 </Switch>

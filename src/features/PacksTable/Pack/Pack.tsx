@@ -5,13 +5,13 @@ import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core";
 import {UpdatePackForm} from "../UpdatePackForm/UpdatePackForm";
 import {PATHS} from "../../../api/PATHS";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 type PackPropsType = {
     packId: string
     name: string
     cardsCount: number
-    updated: string
+    updated: string,
 }
 
 export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated}) => {
@@ -39,6 +39,7 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
             transform: `translate(-${top}%, -${left}%)`,
         };
     }
+
     const classes = useStyles();
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState<boolean>(false)
@@ -59,7 +60,7 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
     const deleteHandler = () => {
         dispatch(deletePackTC(packId))
     }
-    return<>
+    return <>
 
         <tr>
             <td>{name}</td>
@@ -72,7 +73,10 @@ export const Pack: React.FC<PackPropsType> = ({packId, name, cardsCount, updated
                 <button type="button" onClick={handleOpen}>Update</button>
             </td>
             <td>
-                <NavLink to={PATHS.cards + `/${packId}`}>Cards</NavLink>
+                <NavLink to={PATHS.cards + `/${packId}`}>cards</NavLink>
+            </td>
+            <td>
+                <NavLink to={PATHS.learn + `/${packId}`}>learn</NavLink>
             </td>
         </tr>
         <Modal open={open} onClose={handleClose}>

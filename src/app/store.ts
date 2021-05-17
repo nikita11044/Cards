@@ -13,6 +13,7 @@ import {PacksActionTypes, packsReducer} from "../features/PacksTable/Pack/packs-
 //import {paskReducer} from "../features/PacksTable/paskReducer";
 import {CardsActionTypes, cardsReducer} from "../features/CardsTable/Card/cards-reducer";
 import {reducerSearch} from "../features/PacksTable/Pack/reducer-search";
+import {learnReducer} from "../features/LearnPage/learn-reducer";
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     signUp: SignUpReducer,
     packs: packsReducer,
     cards: cardsReducer,
+    learn: learnReducer,
     search:reducerSearch,
 })
 

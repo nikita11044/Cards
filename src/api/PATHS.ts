@@ -7,5 +7,6 @@ export enum PATHS {
     signUp = '/sign-up',
     pageNotFound = '/404',
     packs = '/packsTable',
-    cards = '/cardsTable'
+    cards = '/cardsTable',
+    learn = '/learn'
 }

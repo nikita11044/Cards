@@ -6,8 +6,6 @@ import {AppRootStateType} from "../../app/store";
 import {Card} from "./Card/Card";
 import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core";
-import {UpdatePackForm} from "../PacksTable/UpdatePackForm/UpdatePackForm";
-import {AddPackForm} from "../PacksTable/AddPackForm/AddPackForm";
 import {AddCardForm} from "./AddCardForm/AddCardForm";
 
 type CardsTablePropsType = {}
