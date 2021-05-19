@@ -2,6 +2,7 @@ import {createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
 import {AddPackParamsType, GetPacksParamsType, packsAPI, UpdatePackParamsType} from "../../../api/api";
 import {AppRootStateType, AppThunk} from "../../../app/store";
 import {errorHandler} from "../../../common/error-handler";
+import {getMe} from "../../Profile/profile-reducer";
 
 const initialState: Array<CardPackType> = []
 
@@ -23,6 +24,7 @@ export const {setCardPacks} = slice.actions
 
 export const fetchPacksTC = (getPacksParams: GetPacksParamsType): AppThunk => async (dispatch) => {
     try {
+        await dispatch(getMe())
         const response = await packsAPI.getPacks(getPacksParams)
         dispatch(setCardPacks({cardPacks: response.data.cardPacks}))
     } catch (e) {

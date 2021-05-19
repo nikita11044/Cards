@@ -3,6 +3,7 @@ import {setCardPacks} from "../../PacksTable/Pack/packs-reducer";
 import {AddCardParamsType, cardsAPI, GetCardsParamsType, UpdateCardParamsType} from "../../../api/api";
 import {errorHandler} from "../../../common/error-handler";
 import {AppThunk} from "../../../app/store";
+import {getMe} from "../../Profile/profile-reducer";
 
 const initialState: InitialStateType = {}
 
@@ -31,6 +32,7 @@ export const {setCards} = slice.actions
 
 export const fetchCardsTC =  (getCardsParams: GetCardsParamsType): AppThunk => async (dispatch) => {
     try {
+        await dispatch(getMe())
         const response = await cardsAPI.getCards(getCardsParams)
         dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardsPack_id}))
     } catch (e) {
