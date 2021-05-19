@@ -32,7 +32,7 @@ export const {setCards} = slice.actions
 export const fetchCardsTC =  (getCardsParams: GetCardsParamsType): AppThunk => async (dispatch) => {
     try {
         const response = await cardsAPI.getCards(getCardsParams)
-        dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardPack_id}))
+        dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardsPack_id}))
     } catch (e) {
         errorHandler(e)
     }
@@ -41,7 +41,7 @@ export const fetchCardsTC =  (getCardsParams: GetCardsParamsType): AppThunk => a
 export const addCardTC = (newCard: AddCardParamsType, cardPack_id: string): AppThunk => async (dispatch) => {
     try {
         await cardsAPI.addCard(newCard)
-        dispatch(fetchCardsTC({cardPack_id}))
+        dispatch(fetchCardsTC({cardsPack_id: cardPack_id}))
     } catch (e) {
         errorHandler(e)
     }
@@ -50,7 +50,7 @@ export const addCardTC = (newCard: AddCardParamsType, cardPack_id: string): AppT
 export const updateCardTC = (updatedCardData: UpdateCardParamsType): AppThunk => async (dispatch) => {
     try {
         await cardsAPI.updateCard(updatedCardData)
-        dispatch(fetchCardsTC({cardPack_id: updatedCardData.cardPack_id}))
+        dispatch(fetchCardsTC({cardsPack_id: updatedCardData.cardPack_id}))
     } catch (e) {
         errorHandler(e)
     }
@@ -59,7 +59,7 @@ export const updateCardTC = (updatedCardData: UpdateCardParamsType): AppThunk =>
 export const deleteCardTC = (cardId: string, cardPack_id: string): AppThunk => async (dispatch) => {
     try {
         await cardsAPI.deleteCard(cardId)
-        dispatch(fetchCardsTC({cardPack_id}))
+        dispatch(fetchCardsTC({cardsPack_id: cardPack_id}))
     } catch (e) {
         errorHandler(e)
     }

@@ -9,7 +9,7 @@ const instance = axios.create({
 
 export const loginAPI = {
     login(loginParams: LoginParamsType) {
-        return instance.post<LoginResponseType>('auth/login', loginParams)
+        return instance.post<LoginResponseType>('auth/login', {...loginParams})
     },
     me() {
         return instance.post<any>('auth/me')
@@ -56,10 +56,10 @@ export const packsAPI = {
 export const cardsAPI = {
     getCards(getCardsParams: GetCardsParamsType) {
         const {
-            cardPack_id
+            cardsPack_id
         } = getCardsParams
         return instance.get<GetCardsResponseType>(`cards/card?`
-            + `cardsPack_id=${cardPack_id}`
+            + `cardsPack_id=${cardsPack_id}`
         )
     },
     addCard(newCard: AddCardParamsType) {
@@ -70,6 +70,12 @@ export const cardsAPI = {
     },
     deleteCard(cardId: string) {
         return instance.delete(`cards/card?id=${cardId}`)
+    }
+}
+
+export const learningAPI = {
+    updateGrade(grade: number, card_id: string) {
+        return instance.put<UpdatedGradeResponseType>('cards/grade', {grade, card_id})
     }
 }
 
@@ -169,7 +175,7 @@ export type UpdatePackParamsType = {
 // ** cardsAPI Types
 
 export type GetCardsParamsType = {
-    cardPack_id: string
+    cardsPack_id: string
     min?: number
     max?: number
 }
@@ -201,4 +207,15 @@ export type UpdateCardParamsType = {
     cardPack_id: string
     question?: string
     answer?: string
+}
+
+type UpdatedGradeResponseType = {
+    updatedGrade: {
+        _id: string
+        cardsPack_id: string
+        card_id: string
+        user_id: string
+        grade: number
+        shots: number
+    }
 }

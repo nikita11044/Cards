@@ -56,7 +56,7 @@ export const CardsTable: React.FC<CardsTablePropsType> = () => {
     );
 
     useEffect(() => {
-        dispatch(fetchCardsTC({cardPack_id: packId}))
+        dispatch(fetchCardsTC({cardsPack_id: packId}))
     }, [])
 
     const cards = useSelector<AppRootStateType, CardType[]>(state => state.cards[packId])

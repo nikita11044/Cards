@@ -6,7 +6,7 @@ import {InputText} from "../../../components/InputText";
 import {Button} from "../../../components/Button";
 import React, {useEffect, useState} from "react";
 import {CardType} from "../../CardsTable/Card/cards-reducer";
-import {setAnswerCorrect, setDisplayAnswer, setQuestionAndAnswer} from "../learn-reducer";
+import {setAnswerCorrect, setCardToLearn, setDisplayAnswer, updateGradeTC} from "../learn-reducer";
 import {AppRootStateType} from "../../../app/store";
 
 type LearnCardModalPropsType = {
@@ -16,10 +16,13 @@ type LearnCardModalPropsType = {
 
 export const LearnCardModal: React.FC<LearnCardModalPropsType> = ({pack, modalCloseHandler}) => {
 
+    const card_id = useSelector<AppRootStateType, string>(state => state.learn.card_id)
     const answerCorrect = useSelector<AppRootStateType, boolean | undefined>(state => state.learn.answerCorrect)
     const displayAnswer = useSelector<AppRootStateType, boolean | undefined>(state => state.learn.displayAnswer)
     const question = useSelector<AppRootStateType, string>(state => state.learn.question)
     const answer = useSelector<AppRootStateType, string>(state => state.learn.answer)
+
+    const grades = [`didn't know`, 'knew badly', 'kinda knew', 'knew well', 'knew perfectly well']
 
     const pickCard = (cards: CardType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -32,7 +35,11 @@ export const LearnCardModal: React.FC<LearnCardModalPropsType> = ({pack, modalCl
         console.log('test: ', sum, rand, res)
 
         const card = cards[res.id + 1]
-        dispatch(setQuestionAndAnswer({ answer: card.answer, question: card.question }))
+        dispatch(setCardToLearn(card))
+    }
+
+    const updateGradeHandler = (grade: number) => {
+        dispatch(updateGradeTC(card_id, grade))
     }
 
     useEffect(() => {
@@ -65,13 +72,22 @@ export const LearnCardModal: React.FC<LearnCardModalPropsType> = ({pack, modalCl
     })
 
     if (displayAnswer) {
-        return  <div style={{marginTop: '20px'}}>
-            <h3>{ answerCorrect && "Success!!!" || "Failure" }</h3>
+        return <div style={{marginTop: '20px'}}>
+            <h3>{answerCorrect && "Success!!!" || "Failure"}</h3>
             <Button onClick={() => {
                 pickCard(pack)
                 dispatch(setDisplayAnswer(false))
             }
             }>Continue?</Button>
+            {
+                answerCorrect
+                && grades.map((gr, index) => {
+                    if (index >= 1) return <button onClick={() => updateGradeHandler(index + 1)}>{gr}</button>
+                })
+                || grades.map((gr, index) => {
+                    if (index <= 1) return <button onClick={() => updateGradeHandler(index + 1)}>{gr}</button>
+                })
+            }
             <Button onClick={() => {
                 modalCloseHandler()
                 dispatch(setDisplayAnswer(false))

@@ -40,7 +40,7 @@ export const LearnPage: React.FC = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchCardsTC({cardPack_id: packId}))
+        dispatch(fetchCardsTC({cardsPack_id: packId}))
     }, [])
 
     const pack = useSelector<AppRootStateType, CardType[]>(state => state.cards[packId])
