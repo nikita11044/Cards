@@ -32,7 +32,6 @@ export const {setCards} = slice.actions
 
 export const fetchCardsTC =  (getCardsParams: GetCardsParamsType): AppThunk => async (dispatch) => {
     try {
-        await dispatch(getMe())
         const response = await cardsAPI.getCards(getCardsParams)
         dispatch(setCards({cards: response.data.cards, cardsPack_id: getCardsParams.cardsPack_id}))
     } catch (e) {
