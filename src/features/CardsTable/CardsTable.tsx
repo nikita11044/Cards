@@ -8,13 +8,11 @@ import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core";
 import {AddCardForm} from "./AddCardForm/AddCardForm";
 
-type CardsTablePropsType = {}
-
 type CardsTableParamsType = {
     packId: string
 }
 
-export const CardsTable: React.FC<CardsTablePropsType> = () => {
+export const CardsTable: React.FC = () => {
 
     const {packId} = useParams<CardsTableParamsType>()
     const dispatch = useDispatch()
@@ -68,7 +66,9 @@ export const CardsTable: React.FC<CardsTablePropsType> = () => {
             <thead>
             <tr>
                 <th>Question</th>
+                <th>Question IMG</th>
                 <th>Answer</th>
+                <th>Answer IMG</th>
                 <th>Grade</th>
                 <th>Rating</th>
             </tr>
@@ -80,10 +80,12 @@ export const CardsTable: React.FC<CardsTablePropsType> = () => {
                         return <Card
                             key={card._id}
                             _id={card._id}
-                            cardPack_id={card.cardsPack_id}
+                            cardsPack_id={card.cardsPack_id}
                             answer={card.answer}
+                            answerImg={card.answerImg}
                             grade={card.grade}
                             question={card.question}
+                            questionImg={card.questionImg}
                             rating={card.rating}
                             user_id={card.user_id}
                         />

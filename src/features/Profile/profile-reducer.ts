@@ -1,9 +1,7 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Dispatch} from "redux";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {loginAPI, passwordAPI} from "../../api/api";
 import {setIsLoggedIn} from "../Login/auth-reducer";
 import {errorHandler} from "../../common/error-handler";
-import {setForgotPassword} from "../Password/PasswordRecovery/password-recovery-reducer";
 import {AppThunk} from "../../app/store";
 
 const initialState: InitialStateType = {

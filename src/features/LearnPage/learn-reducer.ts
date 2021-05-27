@@ -7,6 +7,8 @@ const initialState: InitialStateType = {
     card_id: '',
     question: '',
     answer: '',
+    questionImg: '',
+    answerImg: '',
     answerCorrect: undefined,
     displayAnswer: undefined
 }
@@ -25,6 +27,8 @@ const slice = createSlice({
             state.card_id = action.payload._id
             state.question = action.payload.question
             state.answer = action.payload.answer
+            state.questionImg = action.payload.questionImg
+            state.answerImg = action.payload.answerImg
         }
     }
 })
@@ -52,6 +56,8 @@ type InitialStateType = {
     card_id: string
     question: string
     answer: string
+    questionImg?: string,
+    answerImg?: string,
     answerCorrect: boolean | undefined
     displayAnswer: boolean | undefined
 }

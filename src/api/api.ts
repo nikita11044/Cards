@@ -118,6 +118,7 @@ export type TypeCards = {
     user_name: string
     _id: string
 }
+
 export type TypeResponsePacks = {
     cardPacks: TypeCards[]
     cardPacksTotalCount: number
@@ -190,8 +191,7 @@ export type GetCardsResponseType = {
     packUserId: string
 }
 
-export type AddCardParamsType = {
-    cardsPack_id: string
+type CardParamsDomainType = {
     question?: string
     answer?: string
     grade?: number
@@ -203,11 +203,9 @@ export type AddCardParamsType = {
     answerVideo?: string
 }
 
-export type UpdateCardParamsType = {
-    cardPack_id: string
-    question?: string
-    answer?: string
-}
+export type AddCardParamsType = CardParamsDomainType & {cardsPack_id: string}
+
+export type UpdateCardParamsType = CardParamsDomainType & {_id: string, cardsPack_id: string}
 
 type UpdatedGradeResponseType = {
     updatedGrade: {

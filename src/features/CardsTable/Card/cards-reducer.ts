@@ -2,8 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setCardPacks} from "../../PacksTable/Pack/packs-reducer";
 import {AddCardParamsType, cardsAPI, GetCardsParamsType, UpdateCardParamsType} from "../../../api/api";
 import {errorHandler} from "../../../common/error-handler";
-import {AppThunk} from "../../../app/store";
-import {getMe} from "../../Profile/profile-reducer";
+import {AppRootStateType, AppThunk} from "../../../app/store";
 
 const initialState: InitialStateType = {}
 
@@ -51,7 +50,7 @@ export const addCardTC = (newCard: AddCardParamsType, cardPack_id: string): AppT
 export const updateCardTC = (updatedCardData: UpdateCardParamsType): AppThunk => async (dispatch) => {
     try {
         await cardsAPI.updateCard(updatedCardData)
-        dispatch(fetchCardsTC({cardsPack_id: updatedCardData.cardPack_id}))
+        dispatch(fetchCardsTC({cardsPack_id: updatedCardData.cardsPack_id}))
     } catch (e) {
         errorHandler(e)
     }
@@ -74,7 +73,9 @@ type InitialStateType = {
 
 export type CardType = {
     answer: string
+    answerImg?: string
     question: string
+    questionImg?: string
     cardsPack_id: string
     grade: number
     rating: number

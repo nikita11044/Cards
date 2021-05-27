@@ -21,6 +21,9 @@ export const LearnCardModal: React.FC<LearnCardModalPropsType> = ({pack, modalCl
     const displayAnswer = useSelector<AppRootStateType, boolean | undefined>(state => state.learn.displayAnswer)
     const question = useSelector<AppRootStateType, string>(state => state.learn.question)
     const answer = useSelector<AppRootStateType, string>(state => state.learn.answer)
+    const questionImg = useSelector<AppRootStateType, string | undefined>(state => state.learn.questionImg)
+    const answerImg = useSelector<AppRootStateType, string | undefined>(state => state.learn.answerImg)
+
 
     const grades = [`didn't know`, 'knew badly', 'kinda knew', 'knew well', 'knew perfectly well']
 
@@ -74,6 +77,7 @@ export const LearnCardModal: React.FC<LearnCardModalPropsType> = ({pack, modalCl
     if (displayAnswer) {
         return <div style={{marginTop: '20px'}}>
             <h3>{answerCorrect && "Success!!!" || "Failure"}</h3>
+            {answerImg && <img src={answerImg} style={ {maxWidth: '200px'} }/>}
             <Button onClick={() => {
                 pickCard(pack)
                 dispatch(setDisplayAnswer(false))
@@ -97,6 +101,7 @@ export const LearnCardModal: React.FC<LearnCardModalPropsType> = ({pack, modalCl
 
     return <div style={{marginTop: '20px'}}>
         <h3>The question is as follows...</h3>
+        {questionImg && <img src={questionImg} style={ {maxWidth: '200px'} }/>}
         <p>{question}</p>
         <StyledForm onSubmit={formik.handleSubmit}>
             <InputText placeholder={"Enter your answer"}
